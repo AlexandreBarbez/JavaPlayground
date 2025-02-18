@@ -34,7 +34,11 @@ public class Main {
         System.out.println("prénoms composés : " + personnesPrenomCompose);
 
         //la moyenne des ages
-        double moyenne = personnes.stream().mapToInt(Personne::age).average().orElse(0);
+        double moyenne = personnes
+                .stream()
+                .mapToInt(Personne::age)
+                .average()
+                .orElse(0);
         System.out.println("Moyenne des ages : " + moyenne);
 
         //la moyenne des ages par prénoms
