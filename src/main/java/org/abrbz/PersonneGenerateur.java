@@ -58,4 +58,25 @@ public class PersonneGenerateur {
         return "06"+ String.format("%02d", (int) (Math.random() * 100000000));
     }
 
+    public Set<String> adresseReader() {
+        String line;
+        String csvSeparator = ";";
+        String filename = "adresses-05.csv";
+
+        try (InputStream inputStream = Main.class.getClassLoader().getResourceAsStream(filename);
+             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+
+            HashSet<String> adresses = new HashSet<>();
+            while ((line = reader.readLine()) != null) {
+                String[] values  = line.split(csvSeparator);
+                String adresse = values[2] + " " + values[4] + " " + values[5] + " " + values[7];
+                adresses.add(adresse);
+            }
+            return adresses;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }

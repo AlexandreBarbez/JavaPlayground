@@ -18,6 +18,7 @@ public class Main {
         //noms.forEach(System.out::println);
 
         System.out.println(personneGenerateur.telephoneGenerator());
+        System.out.println(personneGenerateur.adresseReader());
 
     }
 }
