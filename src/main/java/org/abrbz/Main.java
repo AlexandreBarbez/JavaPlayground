@@ -2,17 +2,22 @@ package org.abrbz;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
 
-        List<String> Prenoms = List.of("alexandre", );
+        PersonneGenerateur personneGenerateur = new PersonneGenerateur();
 
-        for (int i = 1; i <= 5; i++) {
+        Set<String> prenoms = personneGenerateur.prenomReader();
+        Set<String> noms = personneGenerateur.nomReader();
 
-            System.out.println("i = " + i);
-        }
+        //prenoms.forEach(System.out::println);
+        //noms.forEach(System.out::println);
+
+        System.out.println(personneGenerateur.telephoneGenerator());
+
     }
 }
