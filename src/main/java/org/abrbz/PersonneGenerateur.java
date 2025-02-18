@@ -5,14 +5,43 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class PersonneGenerateur {
 
+    List<Personne> personnes;
+    Set<String> prenoms;
+    Set<String> noms;
+    Set<String> adresses;
 
+    public PersonneGenerateur() {
+        this.personnes = new ArrayList<>();
+        this.prenoms = prenomReader();
+        this.noms = nomReader();
+        this.adresses = adresseReader();
+    }
 
-    public Set<String> prenomReader() {
+    public Personne generateOne() {
+
+        String nom = this.noms.stream().skip(new Random().nextInt(noms.size())).findFirst().orElse(null);
+        String prenom = this.prenoms.stream().skip(new Random().nextInt(prenoms.size())).findFirst().orElse(null);
+        String adresse = this.adresses.stream().skip(new Random().nextInt(adresses.size())).findFirst().orElse(null);
+        int age = new Random().nextInt(100);
+        String email = mailGenerator(nom, prenom);
+        String tel = telephoneGenerator();
+
+        return new Personne(nom, prenom, age, email, tel, adresse);
+    }
+
+    public List<Personne> generate(int number){
+        ArrayList<Personne> personnes = new ArrayList<>();
+        for (int i = 0; i < number; i++) {
+            personnes.add(generateOne());
+        }
+        return personnes;
+    }
+
+    private Set<String> prenomReader() {
         String line;
         String csvSeparator = ";";
         String filename = "prenoms.csv";
@@ -31,7 +60,7 @@ public class PersonneGenerateur {
         }
     }
 
-    public Set<String> nomReader() {
+    private Set<String> nomReader() {
         String line;
         String csvSeparator = ",";
         String filename = "patronymes.csv";
@@ -50,15 +79,15 @@ public class PersonneGenerateur {
         }
     }
 
-    public String mailGenerator(String nom, String prenom) {
-        return prenom + "." + nom + "@mail.com";
+    private String mailGenerator(String nom, String prenom) {
+        return prenom + "." + nom.replace(" ", "_") + "@mail.com";
     }
 
-    public String telephoneGenerator() {
+    private String telephoneGenerator() {
         return "06"+ String.format("%02d", (int) (Math.random() * 100000000));
     }
 
-    public Set<String> adresseReader() {
+    private Set<String> adresseReader() {
         String line;
         String csvSeparator = ";";
         String filename = "adresses-05.csv";
