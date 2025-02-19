@@ -98,8 +98,24 @@ public class PersonneGenerateur {
             HashSet<String> adresses = new HashSet<>();
             while ((line = reader.readLine()) != null) {
                 String[] values  = line.split(csvSeparator);
-                String adresse = values[2] + " " + values[4] + " " + values[5] + " " + values[7];
-                adresses.add(adresse);
+
+                Map<String, String> decompositionAdresses = new HashMap<>();
+                decompositionAdresses.put("$numero", values[2]);
+                decompositionAdresses.put("$rue", values[4]);
+                decompositionAdresses.put("$codePostal", values[5]);
+                decompositionAdresses.put("$ville", values[7]);
+
+                String adresse = """
+                                    n°$numero
+                                    rue : $rue
+                                    cp : $codePostal
+                                    ville : $ville""";
+
+                String result = adresse;
+                for (Map.Entry<String, String> entry : decompositionAdresses.entrySet()) {
+                    result = result.replace(entry.getKey(), entry.getValue());
+                }
+                adresses.add(result);
             }
             return adresses;
         } catch (IOException e) {

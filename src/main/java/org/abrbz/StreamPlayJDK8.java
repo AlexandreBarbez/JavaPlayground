@@ -1,9 +1,6 @@
 package org.abrbz;
 
-import java.util.ArrayList;
-import java.util.IntSummaryStatistics;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class StreamPlayJDK8 {
@@ -48,5 +45,9 @@ public class StreamPlayJDK8 {
                 .collect(Collectors.groupingBy(Personne::prenom, Collectors.summarizingInt(Personne::age)));
 
         moyenneAgeparPrenom.forEach( (key, value) -> System.out.println(key + " : moyenne=" + value.getAverage() + " : total=" + value.getCount() ));
+
+        //le plus agé
+        Optional<Personne> leVieux = personnes.stream().collect(Collectors.maxBy(Comparator.comparingInt(personne -> personne.age())));
+        System.out.println(leVieux.orElse(null));
     }
 }
