@@ -1,4 +1,6 @@
-package org.abrbz;
+package org.abrbz.streamPlay;
+
+import org.abrbz.Main;
 
 import java.io.BufferedReader;
 import java.io.IOException;

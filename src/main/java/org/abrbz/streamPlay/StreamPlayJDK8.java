@@ -1,4 +1,4 @@
-package org.abrbz;
+package org.abrbz.streamPlay;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -7,6 +7,14 @@ public class StreamPlayJDK8 {
 
 
     public void play() {
+
+        System.out.println("""
+                
+                ##########
+                # STREAM #
+                ##########
+                """);
+
         PersonneGenerateur personneGenerateur = new PersonneGenerateur();
         List<Personne> personnes = personneGenerateur.generate(100);
 
